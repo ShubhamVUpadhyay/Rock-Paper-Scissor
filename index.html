@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<title>Web practice</title>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"></script>
+  
+</head>
+<style>
+
+</style>
+<body>
+    <div class="container">
+        <div class="row justify-content-center align-items-center" style="height: 100vh;">
+            <div class="col-lg-4 ">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h3>Select Your Choice :-</h3>
+                    </div>
+                        <div class="card-subtitle my-4 mx-auto">
+                            <button class="mychoice btn btn-primary" value="Rock">Rock</button>
+                            <button class="mychoice btn btn-success" value="Paper">Paper</button>
+                            <button class="mychoice btn btn-danger" value="Scissor">Scissor</button>
+            
+                        </div>
+                        <div class="card-text mx-3">
+                            <p id="user"></p>
+                            <p id="system"></p>
+                        </div>
+                        <div class="card-footer lead text-center text-white p-3">
+                        <p id="result"></p>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+<script>
+// JavaScript
+const userText = document.querySelector('#user');
+const systemText = document.querySelector('#system');
+const resultText = document.querySelector('#result');
+var resultStyle = document.getElementById('result');
+
+let player;
+let system;
+let result;
+const buttons = document.querySelectorAll('.mychoice');
+buttons.forEach(button => {
+    button.addEventListener('click', (event) => {
+        player = button.textContent;
+        system_Choice();
+        userText.textContent = `Your Choice : ${player}`;
+        systemText.textContent = `System Choice : ${system}`;
+        result = checkWinner();
+        resultText.textContent = result;
+        if (result === 'OOps Draw!!') {
+            resultText.style.backgroundColor = 'gray';
+            document.body.style.backgroundColor='gray';
+        } else if (result.includes('WIN')) {
+            resultText.style.backgroundColor = 'green';
+            document.body.style.backgroundColor='green';
+        } else {
+            resultText.style.backgroundColor = 'red';
+            document.body.style.backgroundColor='red';
+        }
+    });
+});
+
+function system_Choice() {
+    const randChoice = Math.floor(Math.random() * 3) + 1;
+    switch (randChoice) {
+        case 1:
+            system = 'Rock';
+            break;
+        case 2:
+            system = 'Paper';
+            break;
+        case 3:
+            system = 'Scissor';
+            break;
+    }
+}
+
+function checkWinner() {
+    if (player === system) {
+        return 'OOps Draw!!';
+    } else if (system === 'Rock') {
+        return (player === 'Paper') ? "You WIN" : "You LOSE";
+    } else if (system === 'Paper') {
+        return (player === 'Scissor') ? "You WIN" : "You LOSE";
+    } else if (system === 'Scissor') {
+        return (player === 'Rock') ? "You WIN" : "You LOSE";
+    }
+}
+
+
+
+</script>
+</body>
+</html>
